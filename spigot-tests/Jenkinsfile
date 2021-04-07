@@ -33,6 +33,16 @@ pipeline {
             post {
                 always {
                     junit 'spigot-tests/reports/xunit.xml'
+                    step([$class: 'S3BucketPublisher',
+                          profileName: 'Dev-Ops-TCA',
+                          entries: [[
+                            bucket: "inin-jenkins-artifacts/${ENVIRONMENT}",
+                            sourceFile: 'spigot-tests/reports/**',
+                            excludedFile: '',
+                            selectedRegion: 'us-east-1',
+                            storageClass: 'REDUCED_REDUNDANCY',
+                            managedArtifacts: true
+                    ]]])
                     sh """
                         # Record results in TCDB
                         source ./npm-utils/scripts/jenkins-pre-build.sh 12.16.1 &> jenkins-pre.log

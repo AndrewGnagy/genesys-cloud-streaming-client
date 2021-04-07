@@ -49,7 +49,7 @@ async function buildConfig () {
       }
     }
 
-    envConfig[name] = value || defaultDevConfig[name];
+    envConfig[name] = defaultDevConfig[name] || value;
   });
 
   const envHost = envConfig.ENV_HOST;

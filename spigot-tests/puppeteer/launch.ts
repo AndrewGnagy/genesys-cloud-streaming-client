@@ -24,6 +24,7 @@ export class PuppeteerManager {
         '--use-fake-device-for-media-stream',
         '--enable-logging',
         '--vmodule=/webrtc/=2,/libjingle/=2,*=-2',
+        '--incognito',
         '--no-sandbox',
         `--use-file-for-fake-audio-capture=${path.resolve(__dirname, 'audio1.wav')}`
       ]

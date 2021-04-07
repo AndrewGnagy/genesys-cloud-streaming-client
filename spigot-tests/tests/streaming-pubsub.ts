@@ -78,7 +78,7 @@ describe('Streaming Pubsub (Softphone via Streaming) [spsvs] [stable]', function
     const pubsubEvent2 = subscription
       .pipe(
         filter(message => {
-          console.debug('checking streaming client pubsub message', message);
+          console.debug('checking streaming client pubsub message', JSON.stringify(message));
           return !!(message && message.participants && message.participants.length === 2);
         }),
         first(),
@@ -89,7 +89,7 @@ describe('Streaming Pubsub (Softphone via Streaming) [spsvs] [stable]', function
     const pubsubEvent3 = subscription
       .pipe(
         filter(message => {
-          console.debug('checking streaming client pubsub message', message);
+          console.debug('checking streaming client pubsub message', JSON.stringify(message));
           return !!(
             message && message.participants &&
             message.participants.length > 1 &&
@@ -174,22 +174,26 @@ describe('Streaming Pubsub (Softphone via Streaming) [spsvs] [stable]', function
     await pubsubEvent3;
   }
 
-  it('can connect to voicemail (tc60055)', async function () {
+  let tc60055 = it('can connect to voicemail (tc60055)', async function () {
+    utils.logTestMethodStart(tc60055.title);
     // Wait up to 25s for whole test to finish
     await testCall.call(this, '*86', { timeout: 25000, isVoicemail: true });
   });
 
-  it('can connect a call (tc60056)', async function () {
+  let tc60056 = it('can connect a call (tc60056)', async function () {
+    utils.logTestMethodStart(tc60056.title);
     // Wait up to 25s for whole test to finish
     await testCall.call(this, config.outboundNumber, { timeout: 25000 });
   });
 
-  it('can connect a call with disconnect [reconnect] (tc60057)', async function () {
+  let tc60057 = it('can connect a call with disconnect [reconnect] (tc60057)', async function () {
+    utils.logTestMethodStart(tc60057.title);
     // Wait up to 50s for whole test to finish
     await testCall.call(this, config.outboundNumber, { timeout: 50000, reconnectStreaming: true });
   });
 
-  it('can connect a call with major disconnect [hardreconnect]', async function () {
+  let tcHardreconnect = it('can connect a call with major disconnect [hardreconnect]', async function () {
+    utils.logTestMethodStart(tcHardreconnect.title);
     // this has to have a long timeout since we need to create and connect 20+ channels
     await testCall.call(this, config.outboundNumber, { timeout: 200000, reconnectStreaming: true, hardReconnect: true });
   });

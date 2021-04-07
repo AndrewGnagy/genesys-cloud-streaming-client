@@ -654,6 +654,10 @@ export const disconnectClient = async (client: Client) => {
   }
 };
 
+export function logTestMethodStart (title: string) {
+  logger.info('**** Starting test method: ', title);
+}
+
 initializeLogging();
 
 const userIds: { [username: string]: string } = {};

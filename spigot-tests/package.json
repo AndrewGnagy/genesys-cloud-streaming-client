@@ -35,7 +35,7 @@
     "pretest": "cd ../ && npm run build && cd -",
     "test": "npm run test:fast",
     "test:fast": "ts-node index.ts 2>&1 | tee reports/test-log.txt",
-    "test:ci": "npm run pretest && CI_MODE=true ts-node index.ts 2>&1 | tee reports/test-log.txt"
+    "test:ci": "mkdir reports && npm run pretest && CI_MODE=true ts-node index.ts 2>&1 | tee reports/test-log.txt"
   },
   "keywords": [],
   "author": "",

@@ -3,7 +3,7 @@
 pipeline {
     agent { node 'dev_mesos_v2' }
     tools {
-        nodejs "NodeJS 14.x"
+        nodejs "NodeJS 18.x"
     }
     options {
         buildDiscarder(logRotator(numToKeepStr: '30', daysToKeepStr: '30'))
@@ -14,7 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
-                    npm install -g npm
+                    npm install -g npm@9
                     npm ci --silent
 
                     cd spigot-tests
